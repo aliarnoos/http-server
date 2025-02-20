@@ -2,6 +2,8 @@ const std = @import("std");
 const stdout = std.io.getStdOut().writer();
 const SocketConfig = @import("config.zig");
 const Request = @import("request.zig");
+const Method = Request.Method;
+const Response = @import("response.zig");
 
 pub fn main() !void {
     const socket = try SocketConfig.Socket.init();
@@ -16,5 +18,12 @@ pub fn main() !void {
 
     const request = Request.parse_request(buffer[0..buffer.len]);
 
-    try stdout.print("{any}\n", .{request});
+    // try stdout.print("{any}\n", .{request});
+    if (request.method == Method.GET) {
+        if (std.mem.eql(u8, request.uri, "/")) {
+            try Response.send_200(connection);
+        } else {
+            try Response.send_404(connection);
+        }
+    }
 }
