@@ -13,5 +13,8 @@ pub fn main() !void {
         buffer[i] = 0;
     }
     _ = try Request.read_request(connection, buffer[0..buffer.len]);
-    try stdout.print("{s}\n", .{buffer});
+
+    const request = Request.parse_request(buffer[0..buffer.len]);
+
+    try stdout.print("{any}\n", .{request});
 }
