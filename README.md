@@ -1,1 +1,1 @@
-A super dump HTTP Servr in Zig XD
+A super dump HTTP Server in Zig XD
