@@ -18,7 +18,7 @@ pub fn main() !void {
 
     const request = Request.parse_request(buffer[0..buffer.len]);
 
-    // try stdout.print("{any}\n", .{request});
+    try stdout.print("{any}\n", .{request});
     if (request.method == Method.GET) {
         if (std.mem.eql(u8, request.uri, "/")) {
             try Response.send_200(connection);
